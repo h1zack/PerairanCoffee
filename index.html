@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perairan Coffee - A Voyage in Every Cup</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Configure Tailwind Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1e3a8a',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        accent: '#3b82f6',
+                        gofood: '#ee2737',
+                        grabfood: '#00b14f',
+                        shopeefood: '#ee4d2d'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .menu-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .image-placeholder {
+            background: linear-gradient(135deg, #1e3a8a 0%, #020617 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.2);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .map-container {
+            filter: grayscale(1) invert(0.9) contrast(1.2);
+            transition: all 0.5s ease;
+        }
+        .map-container:hover {
+            filter: grayscale(0) invert(0) contrast(1);
+        }
+    </style>
+
+    <!-- Chosen Palette: Navy Blue and White. Minimalist and Clean. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-gray-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-navy-950/90 backdrop-blur-md text-white border-b border-white/5" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div id="navBrand" class="font-serif text-2xl font-bold tracking-widest">PERAIRAN</div>
+            <div class="hidden lg:flex space-x-6 text-[10px] font-semibold tracking-widest uppercase">
+                <a href="#home" class="hover:text-accent transition-colors">Beranda</a>
+                <a href="#about" class="hover:text-accent transition-colors">Tentang</a>
+                <a href="#menu-katalog" class="hover:text-accent transition-colors">Katalog Menu</a>
+                <a href="#delivery" class="hover:text-accent transition-colors">Pesan Antar</a>
+                <a href="#location" class="hover:text-accent transition-colors">Lokasi</a>
+            </div>
+            <button onclick="scrollToSection('contact')" class="bg-white text-navy-900 px-6 py-2 rounded-full font-bold text-xs tracking-tighter hover:bg-accent hover:text-white transition-all transform active:scale-95">
+                HUBUNGI KAMI
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center bg-navy-950 overflow-hidden text-white">
+        <div class="absolute inset-0">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] animate-blob"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+            <p id="displayHeroTag" class="text-accent tracking-[0.4em] text-[10px] uppercase mb-6 font-bold animate-fade-in-up">The Perfect Brew Awaits</p>
+            <h1 id="displayHeroTitle" class="font-serif text-5xl md:text-8xl font-bold mb-8 leading-tight animate-fade-in-up delay-100">
+                A Voyage in <br/><span class="italic font-light">Every Cup</span>
+            </h1>
+            <p id="displayHeroSubtitle" class="text-gray-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-light leading-relaxed animate-fade-in-up delay-200">
+                Menikmati perairan rasa melalui segelas kopi dan minuman segar pilihan.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up delay-300">
+                <button onclick="scrollToSection('menu-katalog')" class="bg-accent text-white px-10 py-4 rounded-full font-bold hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all">
+                    Lihat Menu Kami
+                </button>
+                <button onclick="scrollToSection('delivery')" class="border border-white/20 text-white px-10 py-4 rounded-full font-medium hover:bg-white/5 transition-all">
+                    Pesan Online
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="container mx-auto px-6 text-center max-w-3xl">
+            <h4 class="text-accent font-bold tracking-widest text-xs uppercase mb-4">Filosofi</h4>
+            <h2 id="displayAboutTitle" class="font-serif text-4xl font-bold text-navy-900 mb-8 leading-tight">Navigasi Rasa Dari Hulu ke Hilir</h2>
+            <p id="displayAboutText" class="text-gray-600 text-lg font-light leading-relaxed">
+                Perairan Coffee lahir dari keinginan untuk menghadirkan minuman berkualitas yang jujur. Kami percaya bahwa rasa yang luar biasa tidak harus rumit, ia hanya butuh ketulusan dalam setiap proses peracikannya.
+            </p>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu-katalog" class="py-24 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h4 class="text-accent font-bold tracking-widest text-xs uppercase mb-4">Katalog Perjalanan</h4>
+                <h2 class="font-serif text-4xl font-bold text-navy-900 mb-10">Pilih Kategori Favorit</h2>
+                
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button onclick="renderMenu('all')" class="menu-tab px-8 py-3 rounded-xl text-xs font-bold tracking-widest transition-all bg-navy-900 text-white shadow-xl" id="tab-all">SEMUA</button>
+                    <button onclick="renderMenu('coffee')" class="menu-tab px-8 py-3 rounded-xl text-xs font-bold tracking-widest transition-all bg-white text-navy-900 border border-gray-200 hover:border-accent" id="tab-coffee">COFFEE</button>
+                    <button onclick="renderMenu('sweet drink')" class="menu-tab px-8 py-3 rounded-xl text-xs font-bold tracking-widest transition-all bg-white text-navy-900 border border-gray-200 hover:border-accent" id="tab-sweet">SWEET DRINK</button>
+                    <button onclick="renderMenu('fresh drink')" class="menu-tab px-8 py-3 rounded-xl text-xs font-bold tracking-widest transition-all bg-white text-navy-900 border border-gray-200 hover:border-accent" id="tab-fresh">FRESH DRINK</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="menuGrid"></div>
+        </div>
+    </section>
+
+    <!-- Delivery Section -->
+    <section id="delivery" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="bg-navy-950 rounded-[3rem] p-12 text-center text-white relative overflow-hidden shadow-2xl">
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute top-0 left-0 w-64 h-64 bg-accent rounded-full blur-3xl"></div>
+                </div>
+                <div class="relative z-10">
+                    <h2 class="font-serif text-4xl font-bold mb-6">Pesan Dari Mana Saja</h2>
+                    <p class="text-gray-400 max-w-xl mx-auto mb-12 font-light">
+                        Kami tersedia di berbagai platform pesan antar favorit Anda.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-6" id="deliveryLinks">
+                        <!-- Links injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="w-full lg:w-1/2">
+                    <h4 class="text-accent font-bold tracking-widest text-xs uppercase mb-4">Visit Us</h4>
+                    <h2 class="font-serif text-4xl font-bold text-navy-900 mb-8 leading-tight">Pelabuhan Kopi Kami</h2>
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-accent">📍</div>
+                            <div>
+                                <h5 class="font-bold text-navy-900 uppercase text-xs tracking-widest mb-1">Alamat</h5>
+                                <p id="displayAddress" class="text-gray-500 text-sm">-</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-accent">⏰</div>
+                            <div>
+                                <h5 class="font-bold text-navy-900 uppercase text-xs tracking-widest mb-1">Jam Operasional</h5>
+                                <p id="displayHours" class="text-gray-500 text-sm">-</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a id="gmapsBtn" target="_blank" class="mt-12 inline-flex bg-navy-900 text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-accent transition-colors items-center gap-3">
+                        BUKA DI GOOGLE MAPS <span>&rarr;</span>
+                    </a>
+                </div>
+                <div class="w-full lg:w-1/2">
+                    <div id="mapFrameContainer" class="w-full h-[450px] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white map-container">
+                        <!-- Map injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 bg-white border-t border-gray-100">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="font-serif text-3xl font-bold text-center text-navy-950 mb-16 uppercase tracking-widest">Pertanyaan Umum</h2>
+            <div class="space-y-4" id="faqContainer"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-navy-950 text-white pt-24 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-16 mb-20 text-center md:text-left">
+                <div>
+                    <h3 id="footerBrand" class="font-serif text-3xl font-bold mb-6 tracking-widest">PERAIRAN</h3>
+                    <p id="footerTagline" class="text-gray-500 font-light leading-relaxed">
+                        Mengarungi lautan rasa kopi nusantara.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-6 uppercase tracking-widest text-[10px]">Navigasi Cepat</h5>
+                    <ul class="space-y-4 text-gray-500 text-sm">
+                        <li class="hover:text-accent transition-colors"><a href="#menu-katalog">Katalog Menu</a></li>
+                        <li class="hover:text-accent transition-colors"><a href="#delivery">Pesan Online</a></li>
+                        <li class="hover:text-accent transition-colors"><a href="#location">Lokasi Kedai</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-6 uppercase tracking-widest text-[10px]">Kontak</h5>
+                    <ul class="space-y-4 text-gray-500 text-sm">
+                        <li id="footerWA">WhatsApp: -</li>
+                        <li id="footerIG">Instagram: -</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-white/5 text-center text-[10px] text-gray-600 tracking-widest uppercase">
+                &copy; 2024 Perairan Coffee. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIC -->
+    <script>
+        /**
+         * ============================================================
+         * ⚓ KONFIGURASI DATA UTAMA (EDIT DI SINI)
+         * ============================================================
+         */
+
+        const brandData = {
+            name: "Perairan Coffee",
+            heroTag: "The Perfect Brew Awaits",
+            heroTitle: "A Voyage in <br/><span class='italic font-light'>Every Cup</span>",
+            heroSubtitle: "Menikmati perairan rasa melalui segelas kopi dan minuman segar pilihan, diracik dengan sepenuh hati.",
+            aboutTitle: "Navigasi Rasa Dari Hulu ke Hilir",
+            aboutText: "Perairan Coffee lahir dari keinginan untuk menghadirkan minuman berkualitas yang jujur. Kami percaya bahwa rasa yang luar biasa tidak harus rumit, ia hanya butuh ketulusan dalam setiap proses peracikannya.",
+            contactWA: "6289524379164", // Awali dengan 62
+            instagram: "@perairan.coffee",
+            address: "Ruko Asri, Jl. Warung Pulus No.359, West Batujajar, Batujajar, West Bandung Regency, West Java 40561",
+            openingHours: "Setiap Hari: 15:00 - 22:00 WIB",
+            googleMapsUrl: "https://maps.app.goo.gl/Pm81PNwQQJmEwxuf8",
+            googleMapsEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.7746474642267!2d107.48828740988654!3d-6.9175234930532294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e5001b9f0ff3%3A0x6b02f1ab357d99be!2sPerairan%20Coffee!5e0!3m2!1sid!2sid!4v1771829791782!5m2!1sid!2sid"
+        };
+
+        const deliveryLinks = [
+            { platform: "GOFOOD", url: "https://gofood.link/a/SyPP2uG", colorClass: "text-gofood", icon: "🛵" },
+            { platform: "GRABFOOD", url: "#", colorClass: "text-grabfood", icon: "🏍️" },
+            { platform: "SHOPEEFOOD", url: "#", colorClass: "text-shopeefood", icon: "🛍️" }
+        ];
+
+        const menuData = [
+            { 
+                name: "Kopi Susu Creamy", 
+                category: "coffee", 
+                price: "10K", 
+                desc: "Kopi susu standar dengan penekanan pada tekstur susu yang gurih.",
+                image: "" // Masukkan URL foto di sini (misal: "https://link-foto.com/gambar.jpg")
+            },
+            { 
+                name: "Kopi Butterscotch", 
+                category: "coffee", 
+                price: "25k", 
+                desc: "Kopi dengan sentuhan rasa karamel mentega yang gurih dan manis.",
+                image: "" 
+            },
+            { 
+                name: "Caramel Latte", 
+                category: "coffee", 
+                price: "30k", 
+                desc: "Perpaduan kopi espresso, susu, dan sirup karamel klasik.",
+                image: "" 
+            },
+            { 
+                name: "Kopi Gula Aren", 
+                category: "coffee", 
+                price: "28k", 
+                desc: "Kopi susu tradisional yang menggunakan pemanis alami gula aren.",
+                image: "" 
+            },
+            { 
+                name: "Kopi Hazelnut Latte", 
+                category: "coffee", 
+                price: "22k", 
+                desc: "Kopi susu dengan aroma dan rasa kacang hazelnut yang khas.",
+                image: "" 
+            },
+            { 
+                name: "Kopi Vanilla Latte", 
+                category: "coffee", 
+                price: "25k", 
+                desc: "Kopi susu dengan sentuhan aroma vanilla yang manis dan menenangkan.",
+                image: "" 
+            },
+            { 
+                name: "Perairan Chocolate Creamy", 
+                category: "sweet drink", 
+                price: "25k", 
+                desc: "Minuman cokelat dengan tekstur yang kental dan rasa susu yang kuat.",
+                image: "" 
+            },
+            { 
+                name: "Perairan Red Velvet", 
+                category: "sweet drink", 
+                price: "25k", 
+                desc: "Varian dengan rasa khas kue red velvet yang manis dan sedikit sensasi earthy.",
+                image: "" 
+            },
+            { 
+                name: "Perairan Smooth Matcha", 
+                category: "sweet drink", 
+                price: "25k", 
+                desc: "Minuman teh hijau Jepang (matcha) yang diracik agar terasa halus dan tidak terlalu pahit.",
+                image: "" 
+            },
+            { 
+                name: "Perairan Biskuit Marie Susu", 
+                category: "sweet drink", 
+                price: "25k", 
+                desc: "Kombinasi susu dengan cita rasa biskuit Marie yang autentik dan bernuansa nostalgia.",
+                image: "" 
+            },
+            { 
+                name: "Perairan Fresh Ocean Blue", 
+                category: "fresh drink", 
+                price: "25k", 
+                desc: "Minuman berwarna biru (biasanya rasa citrus atau blue curacao) yang memberikan kesan segar seperti laut.",
+                image: "" 
+            },
+            { 
+                name: "Perairan Fresh Lemonade", 
+                category: "fresh drink", 
+                price: "25k", 
+                desc: "Minuman sari lemon yang asam manis dan sangat menyegarkan.",
+                image: "" 
+            },
+            { 
+                name: "Perairan Fresh Sore", 
+                category: "fresh drink", 
+                price: "25k", 
+                desc: "Varian khusus yang kemungkinan merupakan campuran buah atau sirup racikan khas kedai.",
+                image: "" 
+            },
+        ];
+
+        const faqData = [
+            { q: "Apakah tersedia varian non-kopi?", a: "Tentu! Kami memiliki kategori Sweet Drink dan Fresh Drink untuk Anda yang tidak mengonsumsi kafein." },
+            { q: "Bisa bayar pakai e-wallet?", a: "Ya, kami menerima pembayaran via QRIS dan berbagai e-wallet populer di kedai." },
+            { q: "Bisa request tingkat kemanisan?", a: "Bisa sekali. Beritahu barista kami jika Anda ingin less sugar atau extra shot kopi." }
+        ];
+
+        /**
+         * ============================================================
+         * ⚙️ LOGIKA APLIKASI (PROSES DATA KE TAMPILAN)
+         * ============================================================
+         */
+
+        function initApp() {
+            // Update Branding
+            document.getElementById('navBrand').innerText = brandData.name.toUpperCase();
+            document.getElementById('displayHeroTag').innerText = brandData.heroTag;
+            document.getElementById('displayHeroTitle').innerHTML = brandData.heroTitle;
+            document.getElementById('displayHeroSubtitle').innerText = brandData.heroSubtitle;
+            document.getElementById('displayAboutTitle').innerText = brandData.aboutTitle;
+            document.getElementById('displayAboutText').innerText = brandData.aboutText;
+            document.getElementById('displayAddress').innerText = brandData.address;
+            document.getElementById('displayHours').innerText = brandData.openingHours;
+            document.getElementById('gmapsBtn').href = brandData.googleMapsUrl;
+            document.getElementById('footerBrand').innerText = brandData.name.toUpperCase();
+            document.getElementById('footerWA').innerText = `WhatsApp: +${brandData.contactWA}`;
+            document.getElementById('footerIG').innerText = `Instagram: ${brandData.instagram}`;
+            
+            // Map Iframe
+            document.getElementById('mapFrameContainer').innerHTML = `<iframe src="${brandData.googleMapsEmbed}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`;
+
+            // Delivery Links
+            const deliveryContainer = document.getElementById('deliveryLinks');
+            deliveryLinks.forEach(link => {
+                deliveryContainer.innerHTML += `
+                    <a href="${link.url}" class="flex items-center gap-3 bg-white ${link.colorClass} px-8 py-4 rounded-2xl font-bold hover:scale-105 transition-transform shadow-xl">
+                        <span class="text-xl">${link.icon}</span> ${link.platform}
+                    </a>
+                `;
+            });
+
+            renderMenu('all');
+            renderFAQ();
+
+            // Navbar behavior
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 100) { nav.classList.add('bg-navy-950/95', 'py-3'); nav.classList.remove('py-4'); }
+                else { nav.classList.remove('bg-navy-950/95', 'py-3'); nav.classList.add('py-4'); }
+            });
+        }
+
+        function renderMenu(category) {
+            const grid = document.getElementById('menuGrid');
+            grid.innerHTML = '';
+            
+            const tabs = document.querySelectorAll('.menu-tab');
+            tabs.forEach(t => {
+                t.classList.remove('bg-navy-900', 'text-white', 'shadow-xl');
+                t.classList.add('bg-white', 'text-navy-900', 'border', 'border-gray-200');
+            });
+            
+            const activeId = category === 'all' ? 'tab-all' : 
+                             category === 'coffee' ? 'tab-coffee' : 
+                             category === 'sweet drink' ? 'tab-sweet' : 'tab-fresh';
+            const activeTab = document.getElementById(activeId);
+            activeTab.classList.remove('bg-white', 'text-navy-900', 'border');
+            activeTab.classList.add('bg-navy-900', 'text-white', 'shadow-xl');
+
+            const filtered = category === 'all' ? menuData : menuData.filter(m => m.category === category);
+            
+            filtered.forEach(m => {
+                const div = document.createElement('div');
+                div.className = "menu-card bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all group border border-gray-100";
+                const photoHtml = m.image 
+                    ? `<img src="${m.image}" alt="${m.name}" class="w-full h-full object-cover">`
+                    : `<div class="image-placeholder w-full h-full text-[10px]">Tampilkan Foto <br/> ${m.name} Di Sini</div>`;
+
+                div.innerHTML = `
+                    <div class="h-64 relative overflow-hidden bg-gray-100">${photoHtml}
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-4 py-1 rounded-full text-[10px] font-bold text-navy-900 uppercase tracking-widest shadow-sm">${m.price}</div>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-[9px] font-bold text-accent uppercase tracking-[0.2em] mb-3 block">${m.category}</span>
+                        <h4 class="font-serif text-2xl font-bold text-navy-900 mb-3 group-hover:text-accent transition-colors">${m.name}</h4>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6">${m.desc}</p>
+                        <button onclick="orderViaWA('${m.name}')" class="text-xs font-bold text-navy-900 flex items-center gap-2 group-hover:gap-4 transition-all">
+                            PESAN SEKARANG <span class="text-accent">&rarr;</span>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function orderViaWA(itemName) {
+            const msg = `Halo ${brandData.name}, saya ingin memesan menu ${itemName}. Mohon informasikan cara pembayarannya.`;
+            window.open(`https://wa.me/${brandData.contactWA}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function renderFAQ() {
+            const container = document.getElementById('faqContainer');
+            faqData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "bg-white rounded-2xl p-6 border border-gray-100 shadow-sm";
+                div.innerHTML = `
+                    <button class="flex justify-between w-full text-left font-bold text-navy-900 group" onclick="this.nextElementSibling.classList.toggle('hidden');">
+                        <span>${item.q}</span><span class="text-accent">+</span>
+                    </button>
+                    <div class="hidden mt-4 text-gray-500 text-sm font-light pt-4 border-t border-gray-50 leading-relaxed">${item.a}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+
+    <style>
+        @keyframes blob { 0% { transform: scale(1); } 50% { transform: scale(1.1) translate(20px, -20px); } 100% { transform: scale(1); } }
+        .animate-blob { animation: blob 10s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in-up { animation: fade-in-up 1s ease-out forwards; opacity: 0; }
+        .delay-100 { animation-delay: 0.2s; } .delay-200 { animation-delay: 0.4s; } .delay-300 { animation-delay: 0.6s; }
+    </style>
+</body>
+</html>
